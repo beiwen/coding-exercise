@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -21,20 +22,32 @@ public class Sports {
     private List<Team> teams;
 
     //Constructor
-    public Sports() {
-
-    }
-
-    public Long getSportsId() {
-        return sportsId;
+    public Sports(String sportsName) {
+        this.sportsName = sportsName;
+        teamNumber = 0;
+        if(sportsName.equals("Tennis") || sportsName.equals("Chess")) {
+            minParticipants = 2;
+            maxParticipants = 10;
+            openSlots = 10;
+        } else if(sportsName.equals("Relay")) {
+            minParticipants = 12;
+            maxParticipants = 48;
+            openSlots = 48;
+        } else if(sportsName.equals("Football")) {
+            minParticipants = 90;
+            maxParticipants = 360;
+            openSlots = 360;
+        } else if(sportsName.equals("Volleyball")) {
+            minParticipants = 24;
+            maxParticipants = 96;
+            openSlots = 96;
+        }
+        currentFilled = 0;
+        teams = new ArrayList<>();
     }
 
     public String getSportsName() {
         return sportsName;
-    }
-
-    public void setSportsName(String sportsName) {
-        this.sportsName = sportsName;
     }
 
     public int getTeamNumber() {
@@ -43,22 +56,6 @@ public class Sports {
 
     public void setTeamNumber(int teamNumber) {
         this.teamNumber = teamNumber;
-    }
-
-    public int getMinParticipants() {
-        return minParticipants;
-    }
-
-    public void setMinParticipants(int minParticipants) {
-        this.minParticipants = minParticipants;
-    }
-
-    public int getMaxParticipants() {
-        return maxParticipants;
-    }
-
-    public void setMaxParticipants(int maxParticipants) {
-        this.maxParticipants = maxParticipants;
     }
 
     public int getCurrentFilled() {
@@ -79,10 +76,6 @@ public class Sports {
 
     public List<Team> getTeams() {
         return teams;
-    }
-
-    public void setTeams(List<Team> teams) {
-        this.teams = teams;
     }
 
     public boolean isFull() {

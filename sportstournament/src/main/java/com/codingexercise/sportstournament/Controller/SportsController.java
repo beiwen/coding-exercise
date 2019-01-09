@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.ui.Model;
 
 @Controller
 public class SportsController {
@@ -36,6 +37,23 @@ public class SportsController {
         Sports deregisteredSport = sportsRepository.findBySportsName(deregisteredSportName);
         currentEmployee.deregisterSport(deregisteredSport);
         return "deregister";
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/getRegisteredSports")
+    public String getRegisteredSports(@RequestParam("employeeId") Long employeeId,
+                                      Model model) {
+        Employee currentEmployee = employeeRepository.findByEmployeeId(employeeId);
+        model.addAttribute("allRegisteredSports", currentEmployee.getRegisteredSports());
+        return "allRegisteredSports";
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/getSummaryForASport")
+    public String getSummaryForASport(@RequestParam("sportName") String sportName,
+                                      Model model) {
+        Sports sport = sportsRepository.findBySportsName(sportName);
+        model.addAttribute("currentFilled", sport.getCurrentFilled());
+        model.addAttribute("openSlots", sport.getOpenSlots());
+        return "sportSummary";
     }
 
 }

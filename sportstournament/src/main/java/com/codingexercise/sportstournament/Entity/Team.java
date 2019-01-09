@@ -26,21 +26,8 @@ public class Team {
             this.teamCapacity = 45;
         } else {
             this.teamCapacity = 12;
-
         }
         teamMembers = new ArrayList<>(this.teamCapacity);
-    }
-
-    public Long getTeamId() {
-        return teamId;
-    }
-
-    public int getTeamCapacity() {
-        return teamCapacity;
-    }
-
-    public void setTeamCapacity(int teamCapacity) {
-        this.teamCapacity = teamCapacity;
     }
 
     public int getTeamSize() {
@@ -55,16 +42,8 @@ public class Team {
         return teamMembers;
     }
 
-    public void setTeamMembers(List<Employee> teamMembers) {
-        this.teamMembers = teamMembers;
-    }
-
     public Sports getSport() {
         return sport;
-    }
-
-    public void setSports(Sports sport) {
-        this.sport = sport;
     }
 
     public void addTeamMember(Employee e) {

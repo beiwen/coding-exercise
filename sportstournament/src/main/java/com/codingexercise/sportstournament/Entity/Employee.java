@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import java.util.HashSet;
 import java.util.Set;
 
 //This is the entity class which Hibernate will automatically translate into a table.
@@ -20,12 +21,11 @@ public class Employee {
     private Set<Team> addedTeams;
 
     // Constructor
-    public Employee() {
-
-
-    }
-    public Long getEmployeeId() {
-        return employeeId;
+    public Employee(String employeeName) {
+        this.employeeName = employeeName;
+        registeredSportsNumber = 0;
+        registeredSports = new HashSet<>(3);
+        addedTeams = new HashSet<>(3);
     }
 
     public int getRegisteredSportsNumber() {
@@ -40,24 +40,8 @@ public class Employee {
         return registeredSports;
     }
 
-    public void setRegisteredSports(Set<Sports> registeredSports) {
-        this.registeredSports = registeredSports;
-    }
-
     public Set<Team> getAddedTeams() {
         return addedTeams;
-    }
-
-    public void setAddedTeams(Set<Team> addedTeams) {
-        this.addedTeams = addedTeams;
-    }
-
-    public String getEmployeeName() {
-        return employeeName;
-    }
-
-    public void setEmployeeName(String employeeName) {
-        this.employeeName = employeeName;
     }
 
     public void registerSport(Sports s) {
@@ -78,7 +62,6 @@ public class Employee {
             System.out.println("This sport you wants to register has been full");
             return;
         }
-
         // check the sport the individual wants to register is a group sport or individual sport
         // assume that the possible sports options are Relay, Football, Volleyball, Tennis, Chess
         if(s.getSportsName().equals("Chess") || s.getSportsName().equals("Tennis")) {
